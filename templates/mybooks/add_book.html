@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Добавление книги {% endblock %}
+{% block main_page %} class= "nav-item active" {% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Создать"/>
+</form>
+{% endblock content %}
+
+<!--title=,pub_date,description,image,author_name-->

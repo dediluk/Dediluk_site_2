@@ -36,8 +36,21 @@
                 </li>
 
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
+
+            {% if user.is_authenticated %}
+<!--            <img src="{{user.userprofile.avatar.url}}" alt="">-->
+                {% if user.is_superuser %}
+                    <a class="nav-link nav-link-username" href="admin/">{{user.get_username}}</a>
+                {% else %}
+                    <a class="nav-link nav-link-username" href="{% url 'catalog:about' %}">{{user.get_username}}</a>
+                {% endif %}
+                <a class="nav-link nav-link-username" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
+            {% else %}
+                <a class="nav-link nav-link-username" href="{% url 'login' %}?next={{request.path}}">Войти</a>
+            {% endif %}
+            <form action="{% url 'mybooks:search_detail' %}"  class="form-inline my-2 my-lg-0" method="get">
+                {% csrf_token %}
+                <input name='search' class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
             </form>
         </div>

@@ -5,11 +5,24 @@
 
 {% block content %}
 <div class="book_content">
-    <h1>Мои книги</h1>
-    <ul>
+    <h2>Мои книги</h2>
         {% for item in book.all %}
-        <li><h2><a class='index_book_link' href="{% url 'mybooks:detail' item.id%}">{{item.title}} </a></h2></li>
+        <div class="search_div">
+            <div class="search_book_image_div">
+                <a href="{% url 'mybooks:book_detail' item.id%}">
+                    <img class='search_book_image' src="{{item.image.url}}" alt="">
+                </a>
+            </div>
+            <a class='search_book_title' href="{% url 'mybooks:book_detail' item.id%}">
+                <h3>{{item.title}}</h3>
+            </a>
+        </div>
+
+<!--        <li><h2><a class='index_book_link' href="{% url 'mybooks:book_detail' item.id%}">{{item.title}} </a></h2></li>-->
         {% endfor %}
-    </ul>
+    {% if user.is_authenticated %}
+<a href="{% url  'mybooks:add_book_page' %}" class="add_book">Добавить книгу</a>
+    {% endif %}
+
 </div>
 {% endblock content %}

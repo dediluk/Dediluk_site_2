@@ -7,13 +7,18 @@
     <h1>{{ book.title }}</h1>
     <div class="book_image_div">
         <img class='book_image' src="{{ book.image.url }}">
+            {% if user.is_superuser%}
+        <a href="{% url 'mybooks:delete_book' book.id%}" class="delete_book"><button onclick="return confirm('Are you sure?');">Удалить</button></a>
+    {% endif %}
     </div>
     <div class="book_description">
         {% for author in book.author_name.all %}
-        <h3 class="author_name">{{ author.name }}</h3>
+
+        <a href="{% url 'mybooks:author_detail' author.id %}"><h3 class="author_name">{{ author.name }}</h3></a>
         {% endfor %}
 
         <h3 class="book_description_description">{{ book.description }}</h3>
     </div>
+
 </div>
 {% endblock content %}
