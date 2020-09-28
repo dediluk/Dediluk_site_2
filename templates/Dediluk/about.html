@@ -2,6 +2,15 @@
 {% load static %}
 {% block title %} О себе {% endblock %}
 
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'catalog:main_page'%}">Главная </a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'catalog:about' %}">О себе</a></li>
+      </ol>
+    </nav>
+{% endblock %}
+
 {% block content %}
 <div class="about_block">
     <img  class='about_image' src="{% static 'images/about/about.jpg' %}" alt="">

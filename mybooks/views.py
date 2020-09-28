@@ -2,21 +2,24 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
-import request
 from django.urls import reverse
-from .forms import CreateBookForm
+from .forms import CreateBookForm, CreateAuthorForm
 from .models import Book, Author
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator
 
 
-class BookList(ListView):
-    model = Book
-    template_name = 'mybooks/index.html'
+def authors_list(request):
+    authors = Author.objects.all()
+    return render(request, 'mybooks/authors_list.html', {'authors': authors})
 
 
 def index(request):
     get_book = Book.objects.all()
-    return render(request, 'mybooks/index.html', {'book': get_book, 'django': 'active'})
+    paginator = Paginator(get_book, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'mybooks/index.html', {'page_obj': page_obj})
 
 
 class BookDetail(DetailView):
@@ -48,22 +51,25 @@ def addBookPage(request):
     return render(request, 'mybooks/add_book.html', {'form': form})
 
 
-def addingBook(request):
-    print('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-
-    # print(Book.author_name.set())
-    book = Book(title=request.POST.get('title'), pub_date=request.POST.get('pub_date'),
-                description=request.POST.get('description'),
-                image=request.POST.get('image'), author_name=set(Author.objects.all()))
-    print(book.title)
-    print('=========================================================')
-    book.save()
-    return render(request, 'mybooks/index.html')
+def addAuthorPage(request):
+    form = CreateAuthorForm(request.POST, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse("mybooks:authors_list"))
+    return render(request, 'mybooks/add_author.html', {'form': form})
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def delete_book(request, pk):
     book = Book.objects.get(pk=pk)
     book.delete()
     get_book = Book.objects.all()
     return render(request, 'mybooks/index.html', {'book': get_book})
-# description,image,author_name
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_author(request, pk):
+    author = Author.objects.get(pk=pk)
+    author.delete()
+    get_author = Author.objects.all()
+    return render(request, 'mybooks/authors_list.html', {'authors': get_author})

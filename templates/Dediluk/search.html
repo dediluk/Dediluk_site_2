@@ -2,9 +2,13 @@
 {% load static %}
 {% block title %} Поиск {% endblock %}
 
+{% block breadcrumbs %}
+
+{% endblock %}
+
 {% block content %}
 {% if object_list%}
-<h3>Результаты поиска:</h3><br>
+<h3 class="search_result">Результаты поиска:</h3><br>
 
 {% for book in object_list %}
 <div class="search_div">
@@ -14,7 +18,7 @@
         </a>
     </div>
     <a class='search_book_title' href="{% url 'mybooks:book_detail' book.id%}">
-        <h3>{{book.title}}</h3>
+        <h3 class="search_result">{{book.title}}</h3>
     </a>
 </div>
 {% endfor %}

@@ -7,6 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block head_link%} {% endblock %}
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static '/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
@@ -40,9 +41,9 @@
             {% if user.is_authenticated %}
 <!--            <img src="{{user.userprofile.avatar.url}}" alt="">-->
                 {% if user.is_superuser %}
-                    <a class="nav-link nav-link-username" href="admin/">{{user.get_username}}</a>
+                    <a class="nav-link nav-link-username" href="{% url 'admin:index' %}">{{user.get_username|title}}</a>
                 {% else %}
-                    <a class="nav-link nav-link-username" href="{% url 'catalog:about' %}">{{user.get_username}}</a>
+                    <a class="nav-link nav-link-username" href="{% url 'catalog:about_user' user.get_username%}">{{user.get_username|title }}</a>
                 {% endif %}
                 <a class="nav-link nav-link-username" href="{% url 'logout' %}?next={{request.path}}">Выйти</a>
             {% else %}
@@ -56,14 +57,29 @@
         </div>
     </nav>
     <div class="content">
+        {% block breadcrumbs %}
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'catalog:main_page'%}">Главная</a></li>
+          </ol>
+        </nav>
+        {% endblock  %}
         {% block content %}
 
         {% endblock content %}
     </div>
+    <div class="clr"></div>
 
 
+
+
+</div>
+
+{% block paginator %}
+{% endblock paginator%}
     <!-- Footer -->
-    <div class="footer">
+<div class="footer">
         <footer class="page-footer font-small blue">
 
             <!-- Copyright -->
@@ -74,10 +90,5 @@
         </footer>
     </div>
     <!-- Footer -->
-
-</div>
-</body>
-</html>
-
 </body>
 </html>

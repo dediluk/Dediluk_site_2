@@ -17,27 +17,38 @@ html,body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.body {
+    display:flex;
+    flex-direction:column;
+}
 .container {
     width: 1366px;
     margin: 0 auto;
     position: relative;
-	height: 100%;
+	min-height: 100%;
 }
 
 .content {
 	box-sizing: border-box;
-	min-height: 88%;
-	padding-bottom: 90px;
-	    margin-left: 75px;
-    margin-right: 75px;
-    margin-top: 20px;
+	padding-bottom: 100px;
+	margin-left: 75px;
+	margin-right: 75px;
+	margin-top: 20px;
+	/* flex: 1 0 auto; */
+	/* padding:1rem; */
 }
 
 .footer {
-	color: white;
-	background-color: #343a40;
-	background-color: #343a40;
 
+    /* flex: 0 0 auto; */
+    /* padding:1rem; */
+    color: white;
+    martin-top:-100px;
+    height: 57px;
+    background-color: #343a40;
+    background-color: #343a40;
+    width: 1110px;
+    margin: -46px auto;
 }
 
 ul {
@@ -64,6 +75,7 @@ ul {
     color: #212121;
     font-weight: 500;
     font-size: 16px;
+    text-align: center;
 }
 
 .book_content {
@@ -104,6 +116,10 @@ ul {
     /* margin-top: 20px; */
 }
 
+.author_name {
+
+}
+
 .book_image, .author_image {
     height:300px;
     width: 200px;
@@ -114,18 +130,19 @@ ul {
     height:300px;
     width: 200px;
     float:left;
+    margin-left: 22px;
 }
 
 .book_description{
-    margin-left: 220px;
+    margin-left: 255px;
 }
 
-.book_description_description {
-
+.author_list {
+    margin-left: 20px;
 }
 
 .author_description{
-    margin-left:225px;
+    margin-left: 255px;
 }
 
 .about_image {
@@ -203,4 +220,163 @@ ul {
 
 .errorlist {
     display: none;
+}
+
+.clr {
+    height:55px;
+    clear: both;
+}
+
+.header{
+    height: 51px;
+}
+
+.mybooks_h2 {
+    /* color: #859292; */
+    float:left;
+    margin-bottom: 1px;
+    margin-right: 15px;
+}
+
+.add_book_header{
+    position:absolute;
+    right:0;
+    margin-right: 98px;
+    margin-top: 3px;
+}
+
+.delete_book{
+    text-align:center;
+}
+
+.delete_book_button{
+
+margin-top: 8px;
+}
+
+#id_title{color: #343a40;padding: 9px 77px;margin-left: 31px;}
+
+.user_avatar {
+    height: 299px;
+    width: 214px;
+    float:left;
+}
+
+.search_result{
+
+margin-left: 0;
+
+float: none;
+}
+
+.logged_out_p, .logged_out_login_link {
+    text-align:center;
+}
+
+input[type=text], input[type=email]{
+      background-color: #f6f6f6;
+      border: none;
+      padding: 4px;
+      color: #0d0d0d;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px;
+      border: 2px solid #f6f6f6;
+      border-radius: 5px 5px 5px 5px;
+}
+
+input[type=text]:focus{
+    background-color:#fff;
+    border-bottom:2px solid #5fbae9;
+}
+
+
+input[type=password],textarea, input[type=file], select{
+      background-color: #f6f6f6;
+      border: none;
+      padding: 4px;
+      color: #0d0d0d;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 5px;
+      border: 2px solid #f6f6f6;
+      border-radius: 5px 5px 5px 5px;
+}
+
+.lost_password_link{
+    text-align:center;
+}
+
+.paginator{
+    /* float:right; */
+    /* margin-bottom: 48px; */
+    /* margin-top: 38px; */
+    /* margin-bottom: -100px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100%; */
+}
+
+.login_div, .book_add_div, .change_password_div, .author_add_div{
+    margin-top: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+.login_button,.book_add_button, .author_add_button{
+    margin-top: 4px;
+    text-align:center;
+    /* padding-bottom: 165px; */
+}
+
+.login_error, .reset_password_p{
+    text-align:center;
+}
+
+
+
+#id_description{
+    margin-left: 31px;
+    width: 350px;
+}
+
+#id_author_name {margin-left: 54px;width: 349px;}
+
+#id_image{
+    padding-left: 30px;
+    margin-left: 9px;
+    width: 350px;
+}
+
+.reset_password_p{
+    text-align:center;
+}
+
+.change_password{
+    margin-left: 22px;
+}
+
+#id_new_password1 {
+
+}
+
+.not_active_h2{
+    color: #859292;
+}
+
+.not_active_h2:hover {
+    color: #212529;
+}
+
+#id_name{
+    margin-left: 79px;
+    width: 348px;
 }
