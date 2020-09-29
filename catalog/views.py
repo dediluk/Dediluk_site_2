@@ -5,9 +5,25 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.translation import ugettext as _
+from django.contrib.auth.forms import UserCreationForm
+
+
+class RegisterFormView(FormView):
+    form_class = UserCreationForm
+    success_url = "/accounts/login/?next=/mybooks"
+    template_name = 'registration/register.html'
+
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterFormView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        print('=====================================')
+        return super(RegisterFormView, self).form_invalid(form)
+
 
 # @login_required
 def mainPage(request):
@@ -37,7 +53,7 @@ def change_password(request, username):
             messages.error(request, _("Данные введены некорректно"))
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'Dediluk/change_password.html', {'form':form})
+    return render(request, 'Dediluk/change_password.html', {'form': form})
     # if username.lower() == request.user.get_username().lower():
     #     return render(request, 'Dediluk/change_password.html')
     # u = User.objects.get(username=username)

@@ -25,6 +25,7 @@
         <input type="password" placeholder="Пароль" name="password" >
 
         <p class="login_button"><button type="submit" class="btn btn-primary  login_button" value="login">Войти</button></p>
+        <p class="login_button"><a href="{% url 'catalog:register' %}" class="register_link"><button type="button" class="btn btn-primary  login_button" value="login">Регистрация</button></a></p>
         <input type="hidden" name="next" value="{{next}}">
 
     </form>

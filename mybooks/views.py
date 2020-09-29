@@ -7,6 +7,7 @@ from .forms import CreateBookForm, CreateAuthorForm
 from .models import Book, Author
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 
 
 def authors_list(request):
@@ -15,6 +16,8 @@ def authors_list(request):
 
 
 def index(request):
+    print('В индексе')
+    print('В индексе')
     get_book = Book.objects.all()
     paginator = Paginator(get_book, 12)
     page_number = request.GET.get('page')
@@ -28,7 +31,7 @@ class BookDetail(DetailView):
 
 
 def authorDetail(request, pk):
-    author = Author.objects.get(pk=pk)
+    author = get_object_or_404(Author, pk=pk)
     context = Book.objects.filter(author_name=pk)
     return render(request, 'mybooks/author_detail.html', {'author': author, 'books': context})
 
@@ -61,15 +64,15 @@ def addAuthorPage(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_book(request, pk):
-    book = Book.objects.get(pk=pk)
+    book = get_object_or_404(Book, pk=pk)
     book.delete()
     get_book = Book.objects.all()
-    return render(request, 'mybooks/index.html', {'book': get_book})
+    return HttpResponseRedirect(reverse("mybooks:index"))
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_author(request, pk):
-    author = Author.objects.get(pk=pk)
+    author = get_object_or_404(Author, pk=pk)
     author.delete()
     get_author = Author.objects.all()
-    return render(request, 'mybooks/authors_list.html', {'authors': get_author})
+    return HttpResponseRedirect(reverse("mybooks:index"))

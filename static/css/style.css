@@ -322,7 +322,7 @@ input[type=password],textarea, input[type=file], select{
     /* height: 100%; */
 }
 
-.login_div, .book_add_div, .change_password_div, .author_add_div{
+.login_div, .book_add_div, .change_password_div, .author_add_div, register_form_div{
     margin-top: 38px;
     display: flex;
     align-items: center;
